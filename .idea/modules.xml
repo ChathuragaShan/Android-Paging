@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Android-Paging.iml" filepath="$PROJECT_DIR$/.idea/modules/Android-Paging.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Android_Paging.iml" filepath="$PROJECT_DIR$/.idea/modules/Android_Paging.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/Android_Paging.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/Android_Paging.app.iml" />
     </modules>
   </component>
 </project>
