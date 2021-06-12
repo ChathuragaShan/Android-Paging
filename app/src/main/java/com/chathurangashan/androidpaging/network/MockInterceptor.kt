@@ -78,15 +78,18 @@ class MockInterceptor : Interceptor {
 
             if(totalDataCount > (limit * (page - 1))){
 
-                val dataPartition  = fileList.filter { it in (page - 1) * limit downTo page * limit }
+                val dataPartition  = fileList
+                    .filter { it in (page - 1) * limit downTo page * limit }
 
                 val dataList = mutableListOf<Data>()
                 dataPartition.forEach {
-                    val data = Data(it.file,it.fileType,it.modifiedDate,it.name)
+                    val data = Data(it.fileType,it.modifiedDate,it.name)
                     dataList.add(data)
                 }
 
-                val fileListResponse = FileListResponse(dataList, null, true)
+                val allSentCount = (page - 1) * limit + dataPartition.count()
+                val fileListResponse =
+                    FileListResponse(dataList, null, true,page,allSentCount)
 
                 return Response.Builder()
                     .code(200)

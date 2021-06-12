@@ -8,6 +8,6 @@ import retrofit2.http.Query
 interface ApiService {
 
     @GET("files")
-    suspend fun getPosts(@Query("page") page: Int, @Query("limit") limit: Int):
+    suspend fun getFiles(@Query("page") page: Int, @Query("limit") limit: Int):
             Response<FileListResponse>
 }

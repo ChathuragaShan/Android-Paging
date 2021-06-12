@@ -11,5 +11,9 @@ data class FileListResponse(
     @Json(name = "message")
     val message : String?,
     @Json(name = "is_success")
-    val isSuccess: Boolean
+    val isSuccess: Boolean,
+    @Json(name = "page")
+    val page: Int = 0,
+    @Json(name = "total")
+    val total: Int = 0
 )
