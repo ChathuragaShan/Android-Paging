@@ -9,10 +9,9 @@ import java.io.IOException
 import javax.inject.Inject
 
 private const val STARTING_PAGE_INDEX = 1
-private const val PAGE_ITEM_LIMIT = 20
+const val PAGE_ITEM_LIMIT = 20
 
-class FileListPagingSource @Inject constructor(private val apiService: ApiService) :
-    PagingSource<Int, FileInformation>() {
+class FileListPagingSource (private val apiService: ApiService) : PagingSource<Int, FileInformation>() {
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, FileInformation> {
 
