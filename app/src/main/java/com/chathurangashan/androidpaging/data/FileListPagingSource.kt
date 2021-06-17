@@ -9,7 +9,7 @@ import java.io.IOException
 import javax.inject.Inject
 
 private const val STARTING_PAGE_INDEX = 1
-const val PAGE_ITEM_LIMIT = 20
+const val PAGE_ITEM_LIMIT = 10
 
 class FileListPagingSource (private val apiService: ApiService) : PagingSource<Int, FileInformation>() {
 
@@ -31,13 +31,15 @@ class FileListPagingSource (private val apiService: ApiService) : PagingSource<I
                     fileInformationList.add(fileInformation)
                 }
 
-                val totalRetrievedItems = (position + 1) * PAGE_ITEM_LIMIT
+                val totalRetrievedItems = (position) * PAGE_ITEM_LIMIT
 
-                return LoadResult.Page(
+                val loadResults =  LoadResult.Page(
                     data = fileInformationList,
                     prevKey = if (position == 1) null else position - 1,
                     nextKey = if (totalRetrievedItems < responseBody.total) responseBody.page.plus(1) else null
                 )
+
+                return loadResults
 
             } else {
 

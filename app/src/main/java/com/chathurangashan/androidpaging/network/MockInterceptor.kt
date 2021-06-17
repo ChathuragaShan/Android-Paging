@@ -1,10 +1,13 @@
 package com.chathurangashan.androidpaging.network
 
 import com.chathurangashan.androidpaging.data.moshi.file_phasing.FileList
+import com.chathurangashan.androidpaging.data.moshi.file_phasing.FileListItem
 import com.chathurangashan.androidpaging.data.moshi.response.Data
 import com.chathurangashan.androidpaging.data.moshi.response.FileListResponse
 import com.squareup.moshi.JsonAdapter
 import com.squareup.moshi.Moshi
+import com.squareup.moshi.Types
+import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import okhttp3.*
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.ResponseBody.Companion.toResponseBody
@@ -26,16 +29,18 @@ class MockInterceptor : Interceptor {
         val request = chain.request()
         val url = request.url.toString()
 
-        if (url.endsWith("files")) {
+        if (url.contains("www.dummyurl.com/files")) {
 
             val page = request.url.queryParameter("page")?.toInt()
             val limit = request.url.queryParameter("limit")?.toInt()
 
-            return if (!wantRandomError()) {
+            return processResponse(request, page, limit)
+
+            /*return if (!wantRandomError()) {
                 processResponse(request, page, limit)
             } else {
                 randomServerError(chain.request())
-            }
+            }*/
         }
 
         return chain.proceed(request)
@@ -63,7 +68,10 @@ class MockInterceptor : Interceptor {
      */
     private fun processResponse(request: Request,page: Int?, limit: Int?): Response {
 
-        val moshi = Moshi.Builder().build()
+        val moshi = Moshi.Builder()
+            .add(KotlinJsonAdapterFactory())
+            .build()
+
         val jsonFileListResponseAdapter: JsonAdapter<FileListResponse> =
             moshi.adapter(FileListResponse::class.java)
 
@@ -74,12 +82,16 @@ class MockInterceptor : Interceptor {
             val jsonFile1Adapter: JsonAdapter<FileList> = moshi.adapter(FileList::class.java)
 
             val fileList = jsonFile1Adapter.fromJson(jsonString)
-            val totalDataCount = fileList!!.size
+            val totalDataCount = fileList!!.files.size
 
             if(totalDataCount > (limit * (page - 1))){
 
-                val dataPartition  = fileList
-                    .filter { it in (page - 1) * limit downTo page * limit }
+                val dataPartition  =
+                    if(page * limit < totalDataCount){
+                        fileList.files.subList((page - 1) * limit, page * limit)
+                    }else{
+                        fileList.files.subList((page - 1) * limit, totalDataCount)
+                    }
 
                 val dataList = mutableListOf<Data>()
                 dataPartition.forEach {
@@ -87,9 +99,9 @@ class MockInterceptor : Interceptor {
                     dataList.add(data)
                 }
 
-                val allSentCount = (page - 1) * limit + dataPartition.count()
+                //val allSentCount = (page - 1) * limit + dataPartition.count()
                 val fileListResponse =
-                    FileListResponse(dataList, null, true,page,allSentCount)
+                    FileListResponse(dataList, null, true,page,totalDataCount)
 
                 return Response.Builder()
                     .code(200)

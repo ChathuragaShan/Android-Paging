@@ -9,12 +9,10 @@ import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 
-private const val URL_DEV = ""
-private const val URL_LIVE = "https://dummyapi.io/data/api/"
 
 class NetworkService {
 
-    private var baseURL: String
+    private var baseURL: String = "https://www.dummyurl.com"
 
     companion object {
         fun getInstance(): NetworkService {
@@ -26,11 +24,11 @@ class NetworkService {
         }
     }
 
-    constructor(){
-        baseURL = when(ThisApplication.buildType){
-            BuildType.RELEASE -> URL_LIVE
-            BuildType.DEVELOPMENT -> URL_DEV
-            BuildType.TESTING -> ""
+    constructor() {
+        baseURL = when (ThisApplication.buildType) {
+            BuildType.RELEASE -> baseURL
+            BuildType.DEVELOPMENT -> baseURL
+            BuildType.TESTING -> baseURL
         }
     }
 
@@ -41,15 +39,15 @@ class NetworkService {
     fun <S> getService(serviceClass: Class<S>): S {
 
         val httpClient = OkHttpClient.Builder()
-                .addNetworkInterceptor(StethoInterceptor())
-                .connectTimeout(30, TimeUnit.SECONDS)
-                .readTimeout(30, TimeUnit.SECONDS)
-                .addInterceptor(AccessTokenInterceptor())
+            .connectTimeout(30, TimeUnit.SECONDS)
+            .readTimeout(30, TimeUnit.SECONDS)
+            .addNetworkInterceptor(StethoInterceptor())
+            .addInterceptor(MockInterceptor())
 
         val builder = Retrofit.Builder()
-                .addConverterFactory(MoshiConverterFactory.create())
-                .baseUrl(baseURL)
-                .client(httpClient.build())
+            .addConverterFactory(MoshiConverterFactory.create())
+            .baseUrl(baseURL)
+            .client(httpClient.build())
 
         val retrofit = builder.build()
 

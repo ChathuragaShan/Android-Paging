@@ -1,137 +1,144 @@
-[
-  {
-    "name": "ABC project requirement",
-    "file_type": "DOC",
-    "modified_date": "2020-12-01"
-  },
-  {
-    "name": "ABC project analyzes",
-    "file_type": "DOC",
-    "modified_date": "2020-12-05"
-  },
-  {
-    "name": "ABC project UI mock",
-    "file_type": "AL",
-    "modified_date": "2020-12-12"
-  },
-  {
-    "name": "ABC project facility study",
-    "file_type": "DOC",
-    "modified_date": "2020-12-20"
-  },
-  {
-    "name": "ABC project Logo",
-    "file_type": "PNG",
-    "modified_date": "2020-12-20"
-  },
-  {
-    "name": "XYZ agreement",
-    "file_type": "PDF",
-    "modified_date": "2020-12-21"
-  },
-  {
-    "name": "XYZ Logo",
-    "file_type": "PNG",
-    "modified_date": "2020-12-22"
-  },
-  {
-    "name": "Meeting note of XYZ",
-    "file_type": "DOC",
-    "modified_date": "2020-12-25"
-  },
-  {
-    "name": "Roadmap of project XYZ",
-    "file_type": "PDF",
-    "modified_date": "2020-12-28"
-  },
-  {
-    "name": "ABC Sprint 1 plan",
-    "file_type": "PDF",
-    "modified_date": "2020-12-29"
-  },
-  {
-    "name": "XYZ Sprint 1 plan",
-    "file_type": "PDF",
-    "modified_date": "2020-12-29"
-  },
-  {
-    "name": "Year end party team RSVP",
-    "file": "XLSX",
-    "modified_date": "2020-12-31"
-  },
-  {
-    "name": "Group photo 1",
-    "file": "JPG",
-    "modified_date": "2020-01-01"
-  },
-  {
-    "name": "Group photo 2",
-    "file": "JPG",
-    "modified_date": "2020-01-01"
-  },
-  {
-    "name": "Group photo 3",
-    "file": "JPG",
-    "modified_date": "2020-01-01"
-  },
-  {
-    "name": "Group photo 4",
-    "file": "JPG",
-    "modified_date": "2020-01-01"
-  },
-  {
-    "name": "Group photo 4",
-    "file": "JPG",
-    "modified_date": "2020-01-01"
-  },
-  {
-    "name": "Group photo 5",
-    "file": "JPG",
-    "modified_date": "2020-01-01"
-  },
-  {
-    "name": "Meeting note of ABC project",
-    "file_type": "DOC",
-    "modified_date": "2020-01-02"
-  },
-  {
-    "name": "Configuration XYZ",
-    "file_type": "DOC",
-    "modified_date": "2020-01-02"
-  },
-  {
-    "name": "ABC project background image",
-    "file_type": "JPG",
-    "modified_date": "2020-01-02"
-  },
-  {
-    "name": "XYZ project background image",
-    "file_type": "JPG",
-    "modified_date": "2020-01-02"
-  },
-  {
-    "name": "ABC Project Tests plan",
-    "file_type": "XLSX",
-    "modified_date": "2020-01-03"
-  },
-  {
-    "name": "Environment configuration ABC",
-    "file_type": "PDF",
-    "modified_date": "2020-01-02"
-  },
-  {
-    "name": "Screenshot 1 ABC project",
-    "file_type": "JPG",
-    "modified_date": "2020-01-05"
-  },
-  {
-    "name": "Screenshot 2 ABC project",
-    "file_type": "JPG",
-    "modified_date": "2020-01-05"
-  },
-  {
-    "name": "setting icon ABC project",
-    "file_type": "PNG",
-    "modified_date": "2020-01-08"
-  }
-]
+{
+  "files": [
+    {
+      "name": "ABC project requirement",
+      "file_type": "DOC",
+      "modified_date": "2020-12-01"
+    },
+    {
+      "name": "ABC project analyzes",
+      "file_type": "DOC",
+      "modified_date": "2020-12-05"
+    },
+    {
+      "name": "ABC project UI mock",
+      "file_type": "PDF",
+      "modified_date": "2020-12-12"
+    },
+    {
+      "name": "ABC project facility study",
+      "file_type": "DOC",
+      "modified_date": "2020-12-20"
+    },
+    {
+      "name": "ABC project Logo",
+      "file_type": "PNG",
+      "modified_date": "2020-12-20"
+    },
+    {
+      "name": "XYZ agreement",
+      "file_type": "PDF",
+      "modified_date": "2020-12-21"
+    },
+    {
+      "name": "XYZ Logo",
+      "file_type": "PNG",
+      "modified_date": "2020-12-22"
+    },
+    {
+      "name": "Meeting note of XYZ",
+      "file_type": "DOC",
+      "modified_date": "2020-12-25"
+    },
+    {
+      "name": "Roadmap of project XYZ",
+      "file_type": "PDF",
+      "modified_date": "2020-12-28"
+    },
+    {
+      "name": "ABC Sprint 1 plan",
+      "file_type": "PDF",
+      "modified_date": "2020-12-29"
+    },
+    {
+      "name": "XYZ Sprint 1 plan",
+      "file_type": "PDF",
+      "modified_date": "2020-12-29"
+    },
+    {
+      "name": "Year end party team RSVP",
+      "file_type": "CVS",
+      "modified_date": "2020-12-31"
+    },
+    {
+      "name": "Group photo 1",
+      "file_type": "JPG",
+      "modified_date": "2020-01-01"
+    },
+    {
+      "name": "Group photo 2",
+      "file_type": "JPG",
+      "modified_date": "2020-01-01"
+    },
+    {
+      "name": "Group photo 3",
+      "file_type": "JPG",
+      "modified_date": "2020-01-01"
+    },
+    {
+      "name": "Group photo 4",
+      "file_type": "JPG",
+      "modified_date": "2020-01-01"
+    },
+    {
+      "name": "Group photo 4",
+      "file_type": "JPG",
+      "modified_date": "2020-01-01"
+    },
+    {
+      "name": "Group photo 5",
+      "file_type": "JPG",
+      "modified_date": "2020-01-01"
+    },
+    {
+      "name": "Meeting note of ABC project",
+      "file_type": "DOC",
+      "modified_date": "2020-01-02"
+    },
+    {
+      "name": "Configuration XYZ",
+      "file_type": "DOC",
+      "modified_date": "2020-01-02"
+    },
+    {
+      "name": "ABC project background image",
+      "file_type": "JPG",
+      "modified_date": "2020-01-02"
+    },
+    {
+      "name": "XYZ project background image",
+      "file_type": "JPG",
+      "modified_date": "2020-01-02"
+    },
+    {
+      "name": "ABC Project Tests plan",
+      "file_type": "CVS",
+      "modified_date": "2020-01-03"
+    },
+    {
+      "name": "Environment configuration ABC",
+      "file_type": "PDF",
+      "modified_date": "2020-01-02"
+    },
+    {
+      "name": "Screenshot 1 ABC project",
+      "file_type": "JPG",
+      "modified_date": "2020-01-05"
+    },
+    {
+      "name": "Screenshot 2 ABC project",
+      "file_type": "JPG",
+      "modified_date": "2020-01-05"
+    },
+    {
+      "name": "setting icon ABC project",
+      "file_type": "PNG",
+      "modified_date": "2020-01-08"
+    },
+    {
+      "name": "ABC project configuration file",
+      "file_type": "ZIP",
+      "modified_date": "2020-01-10"
+    }
+  ]
+}

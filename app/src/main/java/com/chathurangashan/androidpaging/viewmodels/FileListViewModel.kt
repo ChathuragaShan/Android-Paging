@@ -11,7 +11,7 @@ import javax.inject.Inject
 class FileListViewModel @Inject constructor(private val repository: FileListRepository)
     : BaseViewModel(repository) {
 
-    fun getPostStream(): Flow<PagingData<FileInformation>> {
+    fun getFileDataStream(): Flow<PagingData<FileInformation>> {
         return repository.getFileList().cachedIn(viewModelScope)
     }
 }
