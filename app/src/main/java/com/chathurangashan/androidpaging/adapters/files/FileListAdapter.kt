@@ -1,4 +1,4 @@
-package com.chathurangashan.androidpaging.adapters.file_paging
+package com.chathurangashan.androidpaging.adapters.files
 
 import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter

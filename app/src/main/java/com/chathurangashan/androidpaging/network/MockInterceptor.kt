@@ -24,7 +24,7 @@ class MockInterceptor : Interceptor {
 
     override fun intercept(chain: Interceptor.Chain): Response {
 
-        Thread.sleep(1000) // fake delay
+        Thread.sleep(5000) // fake delay
 
         val request = chain.request()
         val url = request.url.toString()

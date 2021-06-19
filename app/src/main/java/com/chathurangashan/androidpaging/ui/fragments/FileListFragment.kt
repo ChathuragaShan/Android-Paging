@@ -6,7 +6,8 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.chathurangashan.androidpaging.R
-import com.chathurangashan.androidpaging.adapters.file_paging.FileListAdapter
+import com.chathurangashan.androidpaging.adapters.files.FileListAdapter
+import com.chathurangashan.androidpaging.adapters.files.FileLoadStateAdapter
 import com.chathurangashan.androidpaging.data.general.FileInformation
 import com.chathurangashan.androidpaging.databinding.FragmentFileListBinding
 import com.chathurangashan.androidpaging.di.injector
@@ -40,7 +41,9 @@ class FileListFragment : BaseFragment(R.layout.fragment_file_list) {
 
         val fileListAdapter = FileListAdapter { onClickProfile(it) }
         viewBinding.filesRecyclerView.layoutManager = LinearLayoutManager(requireContext())
-        viewBinding.filesRecyclerView.adapter = fileListAdapter
+        viewBinding.filesRecyclerView.adapter = fileListAdapter.withLoadStateFooter(
+            FileLoadStateAdapter { fileListAdapter.retry() }
+        )
 
         lifecycleScope.launch {
             viewModel.getFileDataStream().collectLatest{

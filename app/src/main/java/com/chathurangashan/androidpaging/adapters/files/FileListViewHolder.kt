@@ -1,11 +1,10 @@
-package com.chathurangashan.androidpaging.adapters.file_paging
+package com.chathurangashan.androidpaging.adapters.files
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.chathurangashan.androidpaging.R
 import com.chathurangashan.androidpaging.data.general.FileInformation
-import com.chathurangashan.androidpaging.data.moshi.file_phasing.FileListItem
 import com.chathurangashan.androidpaging.databinding.FileListItemLayoutBinding
 import com.squareup.picasso.Picasso
 
