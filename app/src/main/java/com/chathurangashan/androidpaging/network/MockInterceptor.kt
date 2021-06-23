@@ -20,7 +20,7 @@ import okio.Buffer
 class MockInterceptor : Interceptor {
 
     private var attempts = 0
-    private fun wantRandomError() = attempts++ % 5 == 0
+    private fun wantRandomError() = attempts++ % 3 == 0
 
     override fun intercept(chain: Interceptor.Chain): Response {
 
@@ -34,13 +34,11 @@ class MockInterceptor : Interceptor {
             val page = request.url.queryParameter("page")?.toInt()
             val limit = request.url.queryParameter("limit")?.toInt()
 
-            return processResponse(request, page, limit)
-
-            /*return if (!wantRandomError()) {
+            return if (!wantRandomError()) {
                 processResponse(request, page, limit)
             } else {
                 randomServerError(chain.request())
-            }*/
+            }
         }
 
         return chain.proceed(request)
