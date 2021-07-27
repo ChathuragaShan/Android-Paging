@@ -19,8 +19,14 @@ import okio.Buffer
  */
 class MockInterceptor : Interceptor {
 
-    private var attempts = 0
-    private fun wantRandomError() = attempts++ % 3 == 0
+    private val moshi = Moshi.Builder()
+        .add(KotlinJsonAdapterFactory())
+        .build()
+
+    private val jsonFileListResponseAdapter: JsonAdapter<FileListResponse> =
+        moshi.adapter(FileListResponse::class.java)
+
+    private fun randomChanceOfFailure() = (1..3).random()
 
     override fun intercept(chain: Interceptor.Chain): Response {
 
@@ -34,10 +40,10 @@ class MockInterceptor : Interceptor {
             val page = request.url.queryParameter("page")?.toInt()
             val limit = request.url.queryParameter("limit")?.toInt()
 
-            return if (!wantRandomError()) {
-                processResponse(request, page, limit)
-            } else {
-                randomServerError(chain.request())
+            return when(randomChanceOfFailure()){
+                2 -> randomServerError(chain.request())
+                3 -> randomResponseError(chain.request())
+                else ->  processResponse(request, page, limit)
             }
         }
 
@@ -65,13 +71,6 @@ class MockInterceptor : Interceptor {
      * Responsible for validating request data and returning response accordingly.
      */
     private fun processResponse(request: Request,page: Int?, limit: Int?): Response {
-
-        val moshi = Moshi.Builder()
-            .add(KotlinJsonAdapterFactory())
-            .build()
-
-        val jsonFileListResponseAdapter: JsonAdapter<FileListResponse> =
-            moshi.adapter(FileListResponse::class.java)
 
         if (page != null && limit != null){
 
@@ -105,7 +104,7 @@ class MockInterceptor : Interceptor {
                     .code(200)
                     .request(request)
                     .protocol(Protocol.HTTP_1_1)
-                    .message("Input Field Error")
+                    .message("Success")
                     .body(jsonFileListResponseAdapter.toJson(fileListResponse)
                         .toResponseBody("application/json".toMediaType()))
                     .build()
@@ -121,7 +120,7 @@ class MockInterceptor : Interceptor {
                     .code(200)
                     .request(request)
                     .protocol(Protocol.HTTP_1_1)
-                    .message("Input Field Error")
+                    .message("Error")
                     .body(jsonFileListResponseAdapter.toJson(fileListResponse)
                         .toResponseBody("application/json".toMediaType()))
                     .build()
@@ -139,7 +138,7 @@ class MockInterceptor : Interceptor {
                 .code(200)
                 .request(request)
                 .protocol(Protocol.HTTP_1_1)
-                .message("Input Field Error")
+                .message("Error")
                 .body(jsonFileListResponseAdapter.toJson(fileListResponse)
                     .toResponseBody("application/json".toMediaType()))
                 .build()
@@ -157,6 +156,23 @@ class MockInterceptor : Interceptor {
                 .message("Internal server error")
                 .body("{}".toResponseBody("application/json".toMediaType()))
                 .build()
+    }
+
+    private fun randomResponseError(request: Request): Response{
+
+        val fileListResponse = FileListResponse(
+            null,
+            "Data retrieving error",
+            false)
+
+        return Response.Builder()
+            .code(200)
+            .request(request)
+            .protocol(Protocol.HTTP_1_1)
+            .message("Error")
+            .body(jsonFileListResponseAdapter.toJson(fileListResponse)
+            .toResponseBody("application/json".toMediaType()))
+            .build()
     }
 
     /**

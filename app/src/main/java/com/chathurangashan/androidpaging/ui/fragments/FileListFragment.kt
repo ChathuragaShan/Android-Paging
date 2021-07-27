@@ -50,6 +50,7 @@ class FileListFragment : BaseFragment(R.layout.fragment_file_list) {
         )
 
         fileListAdapter.addLoadStateListener { loadState ->
+
             val isListEmpty = loadState.refresh is LoadState.NotLoading && fileListAdapter.itemCount == 0
 
             if(isListEmpty){
@@ -71,6 +72,7 @@ class FileListFragment : BaseFragment(R.layout.fragment_file_list) {
                 ?: loadState.source.prepend as? LoadState.Error
                 ?: loadState.append as? LoadState.Error
                 ?: loadState.prepend as? LoadState.Error
+
             errorState?.let {
                 viewBinding.errorMessage.text = "\uD83D\uDE28 Wooops ${it.error}"
             }

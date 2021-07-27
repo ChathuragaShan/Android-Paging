@@ -25,52 +25,51 @@ class FileListPagingSource (private val apiService: ApiService) : PagingSource<I
                 val responseBody = postsResponse.body()
                 val fileInformationList = mutableListOf<FileInformation>()
 
-                responseBody!!.data?.forEach {
+                if(responseBody != null) {
 
-                    val fileInformation = FileInformation(it.name, it.fileType, it.modifiedDate)
-                    fileInformationList.add(fileInformation)
+                    if(responseBody.isSuccess){
+
+                        responseBody.data?.forEach {
+
+                            val fileInformation = FileInformation(it.name, it.fileType, it.modifiedDate)
+                            fileInformationList.add(fileInformation)
+                        }
+
+                        val totalRetrievedItems = (position) * PAGE_ITEM_LIMIT
+
+                        return LoadResult.Page(
+                            data = fileInformationList,
+                            prevKey = if (position == 1) null else position - 1,
+                            nextKey = if (totalRetrievedItems < responseBody.total) responseBody.page.plus(1) else null
+                        )
+
+                    }else{
+
+                        return LoadResult.Error(
+                            Throwable(responseBody.message, Throwable("Response Error"))
+                        )
+                    }
+
+                }else{
+
+                    return LoadResult.Error(
+                        Throwable("Empty Response", Throwable("Response Error"))
+                    )
                 }
-
-                val totalRetrievedItems = (position) * PAGE_ITEM_LIMIT
-
-                val loadResults =  LoadResult.Page(
-                    data = fileInformationList,
-                    prevKey = if (position == 1) null else position - 1,
-                    nextKey = if (totalRetrievedItems < responseBody.total) responseBody.page.plus(1) else null
-                )
-
-                return loadResults
 
             } else {
 
                 return LoadResult.Error(
-                    Throwable(
-                        postsResponse.message(), Throwable("Response Error")
-                    )
+                    Throwable(postsResponse.message(), Throwable("Connection Error"))
                 )
             }
 
         } catch (throwable: Throwable) {
 
-            val errorThrowable = when (throwable) {
-                is HttpException -> {
-                    Throwable(
-                        throwable.message(),
-                        Throwable("Connection Error")
-                    )
-                }
-                is IOException ->
-                    Throwable(
-                        "Something Went Wrong Please Try again later.",
-                        Throwable("Processing Error")
-                    )
-                else -> {
-                    Throwable(
-                        "Something Went Wrong Please Try again later.",
-                        Throwable("Processing Error")
-                    )
-                }
-            }
+            val errorThrowable = Throwable(
+                "Something Went Wrong Please Try again later.",
+                Throwable("Processing Error")
+            )
 
             return LoadResult.Error(errorThrowable)
         }
